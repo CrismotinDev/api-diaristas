@@ -14,7 +14,12 @@ class ObtemDiaristasPorCEP extends Controller
 
     public function __invoke(Request $request, ConsultaCEPInterface $servicoCEP)
     {
-        $dados = $servicoCEP->buscar($request->cep ?? '');
+
+        $request->validate([
+            'cep' => ['required', 'numeric']
+        ]);
+
+        $dados = $servicoCEP->buscar($request->cep);
 
         if ($dados === false) {
             return response()->json(['erro' => 'CEP invalido'], 400);
