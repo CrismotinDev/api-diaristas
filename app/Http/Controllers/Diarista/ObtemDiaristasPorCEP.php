@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 class ObtemDiaristasPorCEP extends Controller
 {
 
-    public function __invoke(Request $request, ConsultaCEPInterface $servicoCEP): DiaristaPublicoCollection
+    public function __invoke(Request $request, ConsultaCEPInterface $servicoCEP)
     {
         $dados = $servicoCEP->buscar($request->cep ?? '');
 
