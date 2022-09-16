@@ -1,25 +1,46 @@
 <?php
 
-namespace App\Exception;
+namespace App\Exceptions;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 
 trait ApiHandler
 {
-    protected function getJsonException(\Throwable $e)
+    /**
+     *
+     * trata as exceções da nossa API
+     *
+     * @param \Throwable $e
+     * @return JsonResponse
+     */
+    protected function getJsonException(\Throwable $e): JsonResponse
     {
-        // if ($e instanceof ValidationException) {
-        //     return response()->json([
-        //         "status" => 400,
-        //         "code" => "Validation_error",
-        //         "message" => "Erro de validação dos dados enviados"
-        //     ] + $e->errors(), 400);
-        // }
+        if ($e instanceof ValidationException) {
+            return $this->validationException($e);
+        }
 
-        // return response()->json([
-        //     "status" => 500,
-        //     "code" => "internal_error",
-        //     "message" => "erro interno no servidor"
-        // ], 500);
+        return $this->genericException($e);
+    }
+
+    /**
+     * Retorna resposta para erro de validação
+     *
+     * @param ValidationException $e
+     * @return JsonResponse
+     */
+    protected function validationException(ValidationException $e): JsonResponse
+    {
+        return resposta_padrao("Erro de validação dos dados enviados", "validation_error", 400, $e->errors());
+    }
+
+    /**
+     *
+     * retorna resposta para erro generico
+     */
+
+    protected function genericException(\Throwable $e): JsonResponse
+    {
+        return resposta_padrao("erro interno no servidor", "internal_error", 500);
     }
 }

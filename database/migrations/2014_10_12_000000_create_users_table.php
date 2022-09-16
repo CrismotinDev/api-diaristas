@@ -18,12 +18,12 @@ class CreateUsersTable extends Migration
 
             $table->string('nome_completo');
             $table->char('cpf', 11);
-            $table->date('nascimento');
-            $table->text('foto_documento');
+            $table->date('nascimento')->nullable();
+            $table->text('foto_documento')->nullable();
             $table->text('foto_usuario')->nullable();
-            $table->char('telefone', 11);
+            $table->char('telefone', 11)->nullable();
 
-            $table->integer('tipo_usuario');
+            $table->integer('tipo_usuario')->nullable();
             $table->string('chave_pix')->unique();
             $table->integer('reputacao')->nullable();
 

@@ -1,19 +1,19 @@
 <?php
 
 use App\Http\Controllers\Diarista\ObtemDiaristasPorCEP;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Diarista\VerificaDisponibilidade;
+use App\Http\Controllers\Endereco\BuscaCepApiExterna;
+use App\Http\Controllers\IndexController;
+use App\Http\Controllers\Servico\ObtemServicos;
+use App\Http\Controllers\Usuario\CadastroController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+Route::get('/', IndexController::class);
 
 Route::get('/diaristas/localidades', ObtemDiaristasPorCEP::class)->name('diaristas.busca_por_cep');
+Route::get('/diaristas/disponibilidade', VerificaDisponibilidade::class)->name('enderecos.disponibilidade');
+Route::get('/enderecos', BuscaCepApiExterna::class)->name('enderecos.cep');
 
+Route::get('/servicos', ObtemServicos::class)->name('servicos.index');
+
+Route::post('/usuarios', [CadastroController::class, 'store'])->name('usuarios.create');
