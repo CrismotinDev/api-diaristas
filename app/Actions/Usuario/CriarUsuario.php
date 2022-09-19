@@ -16,7 +16,10 @@ class CriarUsuario
     public function executar(array $dados, UploadedFile $fotoDocumento)
     {
         $dados['foto_documento'] = $fotoDocumento->store('local');
+
         $dados['password'] = Hash::make($dados['password']);
-        User::created($dados);
+
+        User::create($dados);
+        dd($dados);
     }
 }

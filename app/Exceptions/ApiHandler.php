@@ -35,12 +35,15 @@ trait ApiHandler
     }
 
     /**
+     * Retorna uma resposta para erro genérico
      *
-     * retorna resposta para erro generico
+     * @param \Throwable $e
+     * @return JsonResponse
      */
-
     protected function genericException(\Throwable $e): JsonResponse
     {
+
         return resposta_padrao("erro interno no servidor", "internal_error", 500);
+
     }
 }
