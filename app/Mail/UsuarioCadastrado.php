@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -16,9 +17,9 @@ class UsuarioCadastrado extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(User $user)
     {
-        //
+        $this->user = $user;
     }
 
     /**
@@ -28,6 +29,11 @@ class UsuarioCadastrado extends Mailable
      */
     public function build()
     {
-        return $this->view('email.mensagens.cadastro');
+        return $this
+            ->subject('Bem vindo(a) ao E-Diaristas')
+            ->from('nao-responda@e-diaristas.com.br', "E-Diaristas")
+            ->view('email.mensagens.cadastro', [
+                'usuario' => $this->user
+            ]);
     }
 }

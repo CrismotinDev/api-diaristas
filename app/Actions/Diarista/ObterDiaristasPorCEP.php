@@ -9,8 +9,6 @@ use App\Services\ConsultaCEP\ConsultaCEPInterface;
 class ObterDiaristasPorCEP
 {
 
-    private ConsultaCEPInterface $servicoCEP;
-
     public function __construct(
         ConsultaCEPInterface $servicoCEP
     ) {
@@ -25,6 +23,7 @@ class ObterDiaristasPorCEP
     public function executar(string $cep): array
     {
         $dados = $this->servicoCEP->buscar($cep);
+
 
         if ($dados === false) {
             throw ValidationException::withMessages(['cep' => 'Cep não encontrado']);

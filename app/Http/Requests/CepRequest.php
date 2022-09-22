@@ -24,7 +24,7 @@ class CepRequest extends FormRequest
     public function rules()
     {
         return [
-            'cep' => ['required', 'numeric']
+            // 'cep' => ['required', 'numeric']
         ];
     }
 }

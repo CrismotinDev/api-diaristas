@@ -18,8 +18,14 @@ class UserObserver
         $user->reputacao = User::avg('reputacao');
     }
 
+    /**
+     * Envio de boas vindas ao usuario
+     *
+     * @param User $user
+     * @return void
+     */
     public function created(User $user)
     {
-        Mail::to($user->email)->send(new UsuarioCadastrado);
+        Mail::to($user->email)->send(new UsuarioCadastrado($user));
     }
 }

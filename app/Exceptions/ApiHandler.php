@@ -44,6 +44,5 @@ trait ApiHandler
     {
 
         return resposta_padrao("erro interno no servidor", "internal_error", 500);
-
     }
 }

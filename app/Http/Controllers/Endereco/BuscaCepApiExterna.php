@@ -26,6 +26,11 @@ class BuscaCepApiExterna extends Controller
     public function __invoke(CepRequest $request): array
     {
 
+        $request->validate([
+
+            'cep' => ['required', 'numeric']
+        ]);
+
         $dadosEndereco = $this->consultaCep->buscar($request->cep);
 
         if ($dadosEndereco === false) {

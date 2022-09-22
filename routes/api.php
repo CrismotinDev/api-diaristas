@@ -11,7 +11,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', IndexController::class);
 
 Route::get('/diaristas/localidades', ObtemDiaristasPorCEP::class)->name('diaristas.busca_por_cep');
+
+
 Route::get('/diaristas/disponibilidade', VerificaDisponibilidade::class)->name('enderecos.disponibilidade');
+
 Route::get('/enderecos', BuscaCepApiExterna::class)->name('enderecos.cep');
 
 Route::get('/servicos', ObtemServicos::class)->name('servicos.index');
