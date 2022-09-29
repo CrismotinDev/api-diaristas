@@ -25,7 +25,7 @@ class UsuarioCadastroRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $regras = [
             "nome_completo" => ["required", "min:5", "max:255"],
             "cpf" => ["required", "unique:users,cpf", "cpf"],
             "nascimento" => ["required", "date", new IdadeMinima],
@@ -35,7 +35,13 @@ class UsuarioCadastroRequest extends FormRequest
             "email" => ["required", "email", "unique:users,email"],
             "password" => ["required", "confirmed"],
             "password_confirmation" => ["required"]
-
         ];
+
+        $regraPix = [];
+        if ($this->tipo_usuario == 2) {
+            $regraPix = ['chave_pix' => ['required', 'min:4', 'string']];
+        }
+
+        return $regras + $regraPix;
     }
 }

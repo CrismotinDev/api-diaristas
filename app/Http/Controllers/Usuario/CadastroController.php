@@ -8,6 +8,7 @@ use App\Http\Requests\UsuarioCadastroRequest;
 use App\Http\Resources\Usuario;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CadastroController extends Controller
 {
@@ -27,12 +28,17 @@ class CadastroController extends Controller
      */
     public function store(UsuarioCadastroRequest $request)
     {
-
         $usuario = $this->criarUsuario->executar(
             $request->except('password_confirmation'),
             $request->foto_documento
         );
-         return new Usuario($usuario);
+
+        $token = Auth::attemp([
+            'email' => $usuario->email,
+            'password' => $request->password
+        ]);
+
+        return new Usuario($usuario, $token);
     }
 
 
