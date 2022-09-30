@@ -4,28 +4,24 @@ namespace App\Http\Controllers\Diaria;
 
 use App\Actions\Diaria\CriarDiaria;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DiariaRequest;
 use Illuminate\Http\Request;
 
 class CadastroController extends Controller
 {
-
-
     public function index()
     {
     }
-
-
-
     /**
-     * Store a newly created resource in storage.
+     * Undocumented function
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param DiariaRequest $request
+     * @param CriarDiaria $criarDiaria
+     * @return void
      */
-    public function store(Request $request, CriarDiaria $criarDiaria)
+    public function store(DiariaRequest $request, CriarDiaria $criarDiaria)
     {
         $diaria = $criarDiaria->executar($request->all());
-
         return $diaria;
     }
 
@@ -37,6 +33,5 @@ class CadastroController extends Controller
      */
     public function show($id)
     {
-        //
     }
 }
