@@ -4,6 +4,10 @@ namespace App\Http\Requests;
 
 use App\Rules\HoraFinalDiaria;
 use App\Rules\HoraInicioDiaria as RulesHoraInicioDiaria;
+use App\Rules\PrazoInicioDiaria;
+use App\Rules\PrecoDiaria;
+use App\Rules\QuantidadeMinimaComodos;
+use App\Rules\TempoAtendimentoDiaria;
 use Illuminate\Foundation\Http\FormRequest;
 
 class DiariaRequest extends FormRequest
@@ -26,9 +30,9 @@ class DiariaRequest extends FormRequest
     public function rules()
     {
         return [
-            "data_atendimento" => ['required', new RulesHoraInicioDiaria],
-            "tempo_atendimento" => ['required', 'int', 'max:8', new HoraFinalDiaria($this)],
-            "preco" => ['required'],
+            "data_atendimento" => ['required', new RulesHoraInicioDiaria, new PrazoInicioDiaria],
+            "tempo_atendimento" => ['required', 'int', 'max:8', new HoraFinalDiaria($this), new TempoAtendimentoDiaria($this)],
+            "preco" => ['required', new PrecoDiaria($this)],
             "logradouro" => ['required'],
             "numero" => ['required'],
             "complemento" => ['nullable'],
@@ -37,7 +41,7 @@ class DiariaRequest extends FormRequest
             "estado" => ['required'],
             "codigo_ibge" => ['required'],
             "cep" => ['required'],
-            "quantidade_quartos" => ['required', 'int'],
+            "quantidade_quartos" => ['required', 'int', new QuantidadeMinimaComodos($this)],
             "quantidade_salas" => ['required', 'int'],
             "quantidade_cozinhas" => ['required', 'int'],
             "quantidade_banheiros" => ['required', 'int'],

@@ -2,7 +2,6 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 

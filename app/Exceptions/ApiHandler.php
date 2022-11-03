@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
@@ -30,6 +31,10 @@ trait ApiHandler
             return $this->authenticationException($e);
         }
 
+        if ($e instanceof AuthorizationException) {
+            return $this->authorizationException($e);
+        }
+
         return $this->genericException($e);
     }
 
@@ -54,6 +59,21 @@ trait ApiHandler
         AuthenticationException|TokenBlacklistedException $e
     ) {
         return resposta_padrao($e->getMessage(), 'token_not_valid', 401);
+    }
+
+    /**
+     * retorna resposta de nao autorizado
+     *
+     * @param AuthorizationException $e
+     * @return void
+     */
+    protected function authorizationException(AuthorizationException $e)
+    {
+        return resposta_padrao(
+            $e->getMessage(),
+            'authorization_error',
+            401
+        );
     }
 
     /**

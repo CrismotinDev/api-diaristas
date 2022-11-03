@@ -2,8 +2,10 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Hateoas\Usuario as HateoasUsuario;
+use Illuminate\Http\Resources\Json\JsonResource;
+
 
 class Usuario extends JsonResource
 {
@@ -34,6 +36,7 @@ class Usuario extends JsonResource
             "tipo_usuario" => $this->tipo_usuario,
             "foto_usuario" => $this->foto_usuario,
             "chave_pix" => null,
+            "links" => (new HateoasUsuario)->links($this->resource),
 
         ];
 
