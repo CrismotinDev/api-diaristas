@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Diaria\CadastroController as DiariaCadastroController;
+use App\Http\Controllers\Diaria\PagaDiaria;
 use App\Http\Controllers\Diarista\ObtemDiaristasPorCEP;
 use App\Http\Controllers\Diarista\VerificaDisponibilidade;
 use App\Http\Controllers\Endereco\BuscaCepApiExterna;
@@ -17,6 +18,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/me', [AutenticacaoController::class, 'me'])->name('usuario.show');
 
     Route::post('/diarias', [DiariaCadastroController::class, 'store'])->name('diarias.store');
+    
+    Route::post('/diarias/{diaria}/pagamentos', PagaDiaria::class)->name('diarias.pagar');
 });
 
 Route::get('/diaristas/localidades', ObtemDiaristasPorCEP::class)->name('diaristas.busca_por_cep');

@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Rules\HoraFinalDiaria;
 use App\Rules\HoraInicioDiaria as RulesHoraInicioDiaria;
+use App\Rules\IbgeDiaristasDisponiveis;
 use App\Rules\PrazoInicioDiaria;
 use App\Rules\PrecoDiaria;
 use App\Rules\QuantidadeMinimaComodos;
@@ -39,7 +40,7 @@ class DiariaRequest extends FormRequest
             "bairro" => ['required'],
             "cidade" => ['required'],
             "estado" => ['required'],
-            "codigo_ibge" => ['required'],
+            "codigo_ibge" => ['required', 'int', new IbgeDiaristasDisponiveis],
             "cep" => ['required'],
             "quantidade_quartos" => ['required', 'int', new QuantidadeMinimaComodos($this)],
             "quantidade_salas" => ['required', 'int'],

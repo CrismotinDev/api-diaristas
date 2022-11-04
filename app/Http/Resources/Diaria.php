@@ -49,6 +49,8 @@ class Diaria extends JsonResource
             "servico" => $this->servico_id,
             "diarista" => $this->diarista_id,
 
+            "links" => []
+
         ];
     }
 }

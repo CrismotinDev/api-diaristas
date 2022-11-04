@@ -36,4 +36,16 @@ class Diaria extends Model
     {
         return $this->belongsTo(User::class, 'cliente_id');
     }
+
+
+    /**
+     * define o status da diaria como pago
+     *
+     * @return boolean
+     */
+    public function pagar(): bool
+    {
+        $this->status = 2;
+        return $this->save();
+    }
 }
