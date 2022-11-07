@@ -19,7 +19,8 @@ class IbgeDiaristasDisponiveis implements Rule
     {
         $diaristas = User::diaristasDisponivelCidade($value);
 
-        return $diaristas->isNotEmpty();
+        return $diaristas;
+        // ->isNotEmpty()
     }
 
     /**
